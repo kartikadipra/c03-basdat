@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'c03_basdat.wsgi.application'
+WSGI_APPLICATION = 'basdat_c03.wsgi.application'
 
 
 # Database
