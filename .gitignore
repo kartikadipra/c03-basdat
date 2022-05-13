@@ -34,12 +34,15 @@ media
 
 # Distribution / packaging
 .Python
+env/
 build/
 develop-eggs/
 dist/
 downloads/
 eggs/
 .eggs/
+env/lib
+env/lib64
 lib/
 lib64/
 parts/
@@ -99,6 +102,21 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# dotaenv
+.env
+
+# virtualenv
+.env
+.c03_basdat
+env/
+c03_basdat/
+ENV/
+env.bak/
+c03_basdat.bak/
 
 # IPython
 profile_default/
