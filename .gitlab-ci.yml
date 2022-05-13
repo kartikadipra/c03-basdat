@@ -18,10 +18,10 @@ cache:
 #  pip install -r requirements.txt
 #  python manage.py collectstatic --no-input
 
-.coverage_artifacts: &coverage_artifacts
-  artifacts:
-    paths:
-      - .coverage*
+#.coverage_artifacts: &coverage_artifacts
+#  artifacts:
+#    paths:
+#      - .coverage*
 
 #UnitTest:
 #  <<: *disable_on_template
