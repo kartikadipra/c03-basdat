@@ -150,8 +150,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
-    directory.mkdir(exist_ok=True)
+# for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
+#     directory.mkdir(exist_ok=True)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
