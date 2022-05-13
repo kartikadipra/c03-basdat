@@ -85,10 +85,21 @@ WSGI_APPLICATION = 'basdat_c03.wsgi.application'
 # Jangan lupa di uncomment kalo perlu
 # DATABASE_URL= 'postgres://icdzoxyuymaymi:907c9d72575cd314b1cc71cd30a0c7409cd9e01b871345222564c6b0655c9127@ec2-54-158-247-210.compute-1.amazonaws.com:5432/da0tto8vik2np7'
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME':'d707lr0gagd7tk',
+        'USER':'mpafwjjbldwevd',
+        'PASSWORD':'50c84eb8d286171d50b58f4cede89b2dbb48d94721ba0595bc427a54676abb6f',
+        'HOST':'ec2-54-165-90-230.compute-1.amazonaws.com',
+        'PORT':'5432',
     }
 }
 
