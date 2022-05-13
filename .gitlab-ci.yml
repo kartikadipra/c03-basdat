@@ -23,26 +23,26 @@ cache:
     paths:
       - .coverage*
 
-UnitTest:
-  <<: *disable_on_template
-  <<: *coverage_artifacts
-  stage: test
-  before_script:
-    - *django_before_script
-  script:
-    - coverage run --parallel --include="./*" --omit="manage.py,TK2Basdat12/*"
-      manage.py test --exclude-tag=functional
+#UnitTest:
+#  <<: *disable_on_template
+#  <<: *coverage_artifacts
+#  stage: test
+#  before_script:
+#    - *django_before_script
+#  script:
+#    - coverage run --parallel --include="./*" --omit="manage.py,TK2Basdat12/*"
+#      manage.py test --exclude-tag=functional
 
-FunctionalTest:
-  <<: *disable_on_template
-  <<: *coverage_artifacts
-  stage: test
-  before_script:
-    - apt-get update -q && apt-get install -yq chromium-driver
-    - *django_before_script
-  script:
-    - coverage run --parallel --include="./*" --omit="manage.py,TK2Basdat12/*"
-      manage.py test --tag=functional
+#FunctionalTest:
+#  <<: *disable_on_template
+#  <<: *coverage_artifacts
+#  stage: test
+#  before_script:
+#    - apt-get update -q && apt-get install -yq chromium-driver
+#    - *django_before_script
+#  script:
+#    - coverage run --parallel --include="./*" --omit="manage.py,TK2Basdat12/*"
+#      manage.py test --tag=functional
 
 
 Coverage:
