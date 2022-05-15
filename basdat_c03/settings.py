@@ -93,8 +93,7 @@ WSGI_APPLICATION = 'basdat_c03.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 # Jangan lupa di uncomment kalo perlu
-DATABASE_URL= 'postgres://icdzoxyuymaymi:907c9d72575cd314b1cc71cd30a0c7409cd9e01b871345222564c6b0655c9127@ec2-54-158-247-210.compute-1.amazonaws.com:5432/da0tto8vik2np7'
-
+DATABASE_URL= 'postgres://mpafwjjbldwevd:50c84eb8d286171d50b58f4cede89b2dbb48d94721ba0595bc427a54676abb6f@ec2-54-165-90-230.compute-1.amazonaws.com:5432/d707lr0gagd7tk'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',

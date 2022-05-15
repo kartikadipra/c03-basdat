@@ -11,4 +11,9 @@
 </head>
 <body>
     <h1>Hello World</h1>
+    {% for res in result %}
+        <p>Username: {{ res.username }}</p>
+        <p>Email: {{ res.email }}</p>
+    {% endfor %}
 </body>
+</html>
