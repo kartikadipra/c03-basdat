@@ -1,0 +1,88 @@
+{% extends "header.html" %} {% load static %}
+{% block title %} The Cims {% endblock %}
+{% block content %}
+    {% include 'navbar.html' %}
+
+    <div class="w-50 mx-auto text-center my-3 p-3 border border-3 border-dark">
+        <h3>FORM BUAT MISI UTAMA</h3>
+        <hr>
+        <form method="POST" action="/misi/create_misi_utama/">
+
+            <div class="mb-3 d-flex justify-content-center">
+                <label for="new_misi_utama" class="form-label px-3">Nama Misi Utama</label>
+                <input type="text" class="form-control w-75 h-25" name="new_misi_utama"
+                    id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_efek_energi" class="form-label px-3">Efek Energi</label>
+              <input type="text" class="form-control w-75 h-25" name="new_efek_energi"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_efek_energi" class="form-label px-3">Efek Energi</label>
+              <input type="text" class="form-control w-75 h-25" name="new_efek_energi"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_efek_hubungan" class="form-label px-3">Efek Hubungan</label>
+              <input type="text" class="form-control w-75 h-25" name="new_efek_hubungan"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_efek_kelaparan" class="form-label px-3">Efek Kelaparan</label>
+              <input type="text" class="form-control w-75 h-25" name="new_efek_kelaparan"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_syarat_energi" class="form-label px-3">Syarat Energi</label>
+              <input type="text" class="form-control w-75 h-25" name="new_syarat_energi"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_syarat_hubungan" class="form-label px-3">Syarat Hubungan</label>
+              <input type="text" class="form-control w-75 h-25" name="new_syarat_hubungan"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="new_syarat_kelaparan" class="form-label px-3">Syarat Kelaparan/label>
+              <input type="text" class="form-control w-75 h-25" name="new_syarat_kelaparan"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="completion_time" class="form-label px-3">Completion Time>
+              <input type="text" class="form-control w-75 h-25" name="completion_time"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="reward_koin" class="form-label px-3">Reward Koin>
+              <input type="text" class="form-control w-75 h-25" name="reward_koin"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="reward_xp" class="form-label px-3">Reward XP>
+              <input type="text" class="form-control w-75 h-25" name="reward_xp"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-center">
+              <label for="deskripsi" class="form-label px-3">Deskripsi>
+              <input type="text" class="form-control w-75 h-25" name="deskripsi"
+                  id="pb" required placeholder="Type here" />
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">SIMPAN</button>
+        </form>
+    </div>
+{% endblock %}

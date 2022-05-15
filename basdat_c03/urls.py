@@ -19,10 +19,18 @@ import kategori_apparel.urls
 import koleksi.urls
 import koleksi_tokoh.urls
 
+from bekerja import urls as bekerja
+from pekerjaan import urls as pekerjaan
+from menggunakan_barang import urls as menggunakan_barang
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('registrasiPengguna.urls')),
     path('kategori_apparel/', include(kategori_apparel.urls)),
     path('koleksi/', include(koleksi.urls)),
     path('koleksi_tokoh/', include(koleksi_tokoh.urls)),
+
+    path('pekerjaan/', include('pekerjaan.urls')),
+    path('bekerja/', include('bekerja.urls')),
+    path('menggunakan_barang/', include('menggunakan_barang.urls')),
 ]

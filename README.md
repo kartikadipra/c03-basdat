@@ -6,4 +6,4 @@ Anggota Kelompok:
 3. Kartika Dian Pratiwi -2006596270
 4. M. Faiq Hilmi Musyaffa -2006597273
 
-[Link Aplikasi Web:](https://c03-basdat.herokuapp.com/)
+[Link Aplikasi Web Kelompok C03](https://c03-basdat.herokuapp.com/)

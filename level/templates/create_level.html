@@ -1,0 +1,24 @@
+{% extends "header.html" %} {% load static %}
+{% block title %} The Cims {% endblock %}
+{% block content %}
+    {% include 'navbar.html' %}
+
+    <div class="w-50 mx-auto text-center my-3 p-3 border border-3 border-dark">
+        <h3>FORM BUAT PEKERJAAN</h3>
+        <hr>
+        <form method="POST" action="/level/create_level_baru/">
+            <div class="mb-3 d-flex justify-content-center">
+                <label for="levelbaru" class="form-label px-3">Level: </label>
+                <input type="text" class="form-control w-75 h-25" name="level_baru"
+                    id="pb" required placeholder="Masukkan Level" />
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <label for="xp" class="form-label px-3">XP: </label>
+                <input type="number" class="form-control w-75 h-25" name="xp_baru"
+                    id="xpBaru" required placeholder="Masukkan XP" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">SIMPAN</button>
+        </form>
+    </div>
+{% endblock %}

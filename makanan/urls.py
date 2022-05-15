@@ -13,5 +13,5 @@ urlpatterns = [
 
     path('create_makanan/', create_makanan),
 
-    path('update_base_honor_baru/<makanan_lama>', update_makanan),
+    path('update_makanan_baru/<makanan_lama>', update_makanan),
 ]
