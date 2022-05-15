@@ -52,6 +52,8 @@ INSTALLED_APPS = [
      # Add fitur
     'registrasiPengguna',
     'kategori_apparel',
+    'koleksi',
+    'koleksi_tokoh',
 ]
 
 # hapus aja

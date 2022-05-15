@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import kategori_apparel.urls
+import koleksi.urls
+import koleksi_tokoh.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('registrasiPengguna.urls')),
-    path('kategori_apparel/', include(kategori_apparel.urls))
+    path('kategori_apparel/', include(kategori_apparel.urls)),
+    path('koleksi/', include(koleksi.urls)),
+    path('koleksi_tokoh/', include(koleksi_tokoh.urls)),
 ]
