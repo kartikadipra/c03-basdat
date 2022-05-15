@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import kategori_apparel.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('registrasiPengguna.urls'))
+    path('', include('registrasiPengguna.urls')),
+    path('kategori_apparel/', include(kategori_apparel.urls))
 ]

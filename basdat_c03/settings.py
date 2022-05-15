@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
      # Add fitur
-    'registrasiPengguna'
+    'registrasiPengguna',
+    'kategori_apparel',
 ]
 
 # hapus aja
