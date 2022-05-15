@@ -44,18 +44,7 @@ def create_pekerjaan_baru(request):
     else:
         return HttpResponseRedirect('/login')
 
-def delete_pekerjaan(request, old_pekerjaan):
-    print("pekerjaan_lama : " + pekerjaan_lama)
-    if request.session.has_key('username'):
-        if request.session['role'] == 'admin':
-            respon = make_query("select * from pekerjaan;")
-
-        return HttpResponseRedirect('pekerjaan/daftar/')
-
-    else:
-        return HttpResponseRedirect('/login')
-
-def update_pekerjaan(request, old_pekerjaan):
+def update_pekerjaan(request, pekerjaan_lama):
     if request.session.has_key('username'):
         if request.session['role'] == 'admin':
             print("pekerjaan_lama = " + pekerjaan_lama)
@@ -70,14 +59,14 @@ def update_pekerjaan(request, old_pekerjaan):
         return HttpResponseRedirect('/login')
 
 @csrf_exempt
-def update_base_honor(request, old_honor):
+def update_base_honor(request, honor_lama):
     print("honor_lama : " + honor_lama)
     if request.session.has_key('username'):
         if request.session['role'] == 'admin':
             if request.session['role'] == 'POST':
                 honor_baru = request.POST.get('honor_baru')
-                print(honr_baru)
-                respon = make_query("select * from pekerjaan;")
+                print(honor_baru)
+                respon = make_query("SELECT * FROM pekerjaan;")
 
         return HttpResponseRedirect('/pekerjaan/daftar/')
 
@@ -86,7 +75,16 @@ def update_base_honor(request, old_honor):
 
 
 
+def delete_pekerjaan(request, pekerjaan_lama):
+    print("pekerjaan_lama : " + pekerjaan_lama)
+    if request.session.has_key('username'):
+        if request.session['role'] == 'admin':
+            respon = make_query("select * from pekerjaan;")
 
+        return HttpResponseRedirect('pekerjaan/daftar/')
+
+    else:
+        return HttpResponseRedirect('/login')
 
 
 

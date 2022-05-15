@@ -1,7 +1,7 @@
-//{% extends "header.html" %} {% load static %}
+{% extends "header.html" %} {% load static %}
 {% block title %} The Cims {% endblock %}
 {% block content %}
-    //{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
     <div class="w-50 mx-auto my-3 text-center">
         <h3>TABEL PEKERJAAN</h3>
@@ -22,12 +22,12 @@
                 <td>{{ x.base_honor }}</td>
                 {% if role == 'admin' %}
                 <td class="d-flex justify-content-center gap-3">
-                    <a href="/pekerjaan/update/{{ data.nama }}">
+                    <a href="/pekerjaan/update/{{ x.nama }}">
                         <button type="button" class="btn btn-secondary" >
                             UPDATE
                         </button>
                     </a>
-                    <a href="/job/delete/{{ data.nama }}">
+                    <a href="/pekerjaan/delete/{{ x.nama }}">
                         <button type="button" class="btn btn-danger" >
                             DELETE
                         </button>

@@ -5,14 +5,34 @@ from tools.tools import make_query
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-HOMEURL = "/home"
-LOGINURL = "/login"
 
-def index(request):
-    return render(request, 'index.html')
+
+def home(request):
+    return render(request, 'home.html')
+    
+def homePage(request):
+
+    #login
+    if 'user' not in request.session:
+        return HttpResponseRedirect('/login_page')
+
+    isi = {
+        'role': request.session['role'],
+        'username': request.session['username']
+    }
+
+    #register
+    if request.session['role'] == 'user':  # aslinya user
+        isi['email'] = request.session['user']['email']
+        isi['phone'] = request.session['user']['no_hp']
+        isi['koin'] = request.session['user']['koin']
+
+    return render(request, 'homepage.html', isi)
+
+
 
 @csrf_exempt
-def login_page(request):
+def loginPage(request):
     if 'user' in request.session:
         return HttpResponseRedirect('/home')
 
@@ -21,7 +41,8 @@ def login_page(request):
         password = request.POST['password']
         role = "user"
 
-        result = make_query(f"select * from pemain where username='{username}' and password='{password}'")
+        result = make_query(f"SELECT * FROM pemain WHERE username='{username}' and password='{password}'")
+        
         # bisa di modif == null or ""
         if len(result) == 0:
             result = make_query(f"select * from admin where username='{username}' and password='{password}'")
@@ -29,70 +50,55 @@ def login_page(request):
             if len(result) == 0:
                 return HttpResponseNotFound("User not found")
 
-        request.session['user'] = user_result(result[0])
+        request.session['user'] = hasil(result[0])
         request.session['role'] = role
         request.session['username'] = result[0].username
 
-def home_page(request):
-    if 'user' not in request.session:
-        return HttpResponseRedirect('/login')
-
-    model = {
-        'role': request.session['role'],
-        'username': request.session['username']
-    }
-
-    if request.session['role'] == 'user':
-        model['email'] = request.session['user']['email']
-        model['phone'] = request.session['user']['no_hp']
-        model['koin'] = request.session['user']['koin']
-
-    return render(request, 'homepage.html', model)
 
 def logout(request):
     request.session.flush()
     return HttpResponseRedirect("/")
 
-def user_result(result):
+def hasil(result):
     # pemain
     if len(result) == 5:
-        result_map = {
+        map = {
             'username': result[0],
             'email': result[1],
             'password': result[2],
             'no_hp': result[3],
             'koin': result[4],
         }
-        return result_map
+        return map
 
     # admin
-    result_map = {
+    map = {
         'username':result[0],
         'password': result[1],
     }
-    return result_map
+    return map
 
 @csrf_exempt
-def register_player(request):
+def registerPemain(request):
     if 'user' in request.session:
         return HttpResponseRedirect('/home')
 
     if request.method == "POST":
         print(request.POST)
 
-    return render(request, "register-player.html")
+    return render(request, "registerPemain.html")
 
 @csrf_exempt
-def register_admin(request):
+def registerAdmin(request):
     if 'user' in request.session:
         return HttpResponseRedirect('/home')
 
     if request.method == "POST":
         print(request.POST)
 
-    return render(request, "register-admin.html")
+    return render(request, "register_admin.html")
 
-def tokoh_list(request):
+def daftar_tokoh(request):
     if 'user' not in request.session:
         return HttpResponseRedirect('/login')
     if request.session["role"] == "user":
@@ -101,18 +107,18 @@ def tokoh_list(request):
     else:
         tokoh = make_query("select * from tokoh")
 
-    return render(request, "tokoh-list.html", {"tokoh":tokoh})
+    return render(request, "tokoh_list.html", {"tokoh":tokoh})
 
-def tokoh_detail(request):
+def detail_tokoh(request):
     if 'user' not in request.session:
         return HttpResponseRedirect('/login')
 
     username = request.GET.get("username")
     nama_tokoh = request.GET.get("nama_tokoh")
 
-    tokoh = make_query(f"select * from tokoh where username_pengguna='{username}' and nama='{nama_tokoh}'")
+    tokoh = make_query(f"SELECT * FROM TOKOH WHERE username_pengguna='{username}' and nama='{nama_tokoh}'")
 
-    return render(request, "tokoh-detail.html", {"tokoh":tokoh[0]})
+    return render(request, "tokoh_detail.html", {"tokoh":tokoh[0]})
 
 
 def create_tokoh(request):
@@ -138,6 +144,26 @@ def update_tokoh(request):
     username = request.session['username']
     nama_tokoh = request.GET.get('nama_tokoh')
 
-    tokoh = make_query(f"select * from tokoh where username_pengguna='{username}' and nama='{nama_tokoh}'")
-    return render(request, 'update-tokoh.html', {'tokoh':tokoh[0]})
+    tokoh = make_query(f"SELECT * FROM TOKOH WHERE username_pengguna='{username}' AND nama='{nama_tokoh}'")
+    return render(request, 'update_tokoh.html', {'tokoh':tokoh[0]})
 
+
+
+def namedtuplefetchall(cursor):
+    "Return all rows from a cursor as a namedtuple"
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
+def index(request):
+    cursor = connection.cursor()
+    try:
+        cursor.execute("SET SEARCH_PATH TO THECIMS")
+        cursor.execute("SELECT username FROM ADMIN")
+        result = namedtuplefetchall(cursor)
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+
+    return render(request, 'homepage.html', {'result': result})

@@ -1,21 +1,21 @@
-//{% extends "header.html" %} {% load static %}
+{% extends "header.html" %} {% load static %}
 {% block title %} The Cims {% endblock %}
 {% block content %}
-    //{% include 'navbar.html' %}
+    {% include 'navbar.html' %}
 
     <div class="w-50 mx-auto text-center my-3 p-3 border border-3 border-dark">
         <h3>FORM UPDATE PEKERJAAN</h3>
         <hr>
-        <form method="POST" action="/job/update_new_base_honor/{{ result.nama }}">
+        <form method="POST" action="/pekerjaan/update_base_honor_baru/{{ result.nama }}">
             <div class="mb-3 d-flex justify-content-center">
-                <label for="newjob" class="form-label px-3">Job Name: {{ result.nama }}</label>
-                <input type="text" disabled class="form-control w-50 h-25" name="new_job"
-                    id="newjob" required placeholder="Can't change job name" />
+                <label for="pekerjaan_baru" class="form-label px-3">Nama Pekerjaan: {{ result.nama }}</label>
+                <input type="text" disabled class="form-control w-50 h-25" name="pekerjaan_baru"
+                    id="pekerjaan_baru" required placeholder="Tidak bisa mengubah pekerjaan" />
             </div>
             <div class="mb-3 d-flex justify-content-center">
-                <label for="newBH" class="form-label px-3">Base Honor: {{ result.base_honor }}</label>
+                <label for="honor" class="form-label px-3">Base Honor: {{ result.base_honor}}</label>
                 <input type="number" class="form-control w-50 h-25" name="new_BH"
-                    id="newBH" required placeholder="Enter Base Honor" />
+                    id="honor_baru" required placeholder="Masukkan Base Honor" />
             </div>
 
             <button type="submit" class="btn btn-primary">SIMPAN</button>

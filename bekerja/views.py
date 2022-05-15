@@ -4,6 +4,28 @@ from tools.tools import make_query
 from django.http.response import HttpResponseRedirect, JsonResponse
 
 # Create your views here.
+def mulai_bekerja(request):
+    if request.session.has_key('username'):
+        if request.session['role'] != 'admin':
+            username_user = request.session['username']
+            respon = make_query(
+                f"""
+                select *
+                from bekerja
+                where username_pengguna = '{username_user}';
+                """
+            )
+            response = {
+                'hasil' : respon,
+                'role': request.session['role']
+            }
+            print(respon)    
+            return render(request, 'mulai_bekerja.html', response)
+        else:
+            return HttpResponseRedirect('/bekerja/daftar/')
+    else:
+        return HttpResponseRedirect('/login')
+        
 def reads_bekerja(request):
     if request.session.has_key('username'):
         if request.session['role'] == 'admin':
@@ -48,24 +70,3 @@ def create_bekerja(request):
     else:
         return HttpResponseRedirect('/login')
 
-def mulai_bekerja(request):
-    if request.session.has_key('username'):
-        if request.session['role'] != 'admin':
-            username_user = request.session['username']
-            respon = make_query(
-                f"""
-                select *
-                from bekerja
-                where username_pengguna = '{username_user}';
-                """
-            )
-            response = {
-                'hasil' : respon,
-                'role': request.session['role']
-            }
-            print(respon)    
-            return render(request, 'mulai_bekerja.html', response)
-        else:
-            return HttpResponseRedirect('/bekerja/daftar/')
-    else:
-        return HttpResponseRedirect('/login')

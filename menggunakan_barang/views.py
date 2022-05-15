@@ -61,7 +61,7 @@ def create_barang_baru(request):
                 print("username_user = " + username_user)
                 print("pilihan_tokoh = " + pilihan_tokoh)
                 print("pilihan_id_item = " + pilihan_id_item)
-        return HttpResponseRedirect('/use_item/list/')
+        return HttpResponseRedirect('/menggunakan_barang/daftar/')
     else:
         return HttpResponseRedirect('/login')
 
@@ -73,7 +73,7 @@ def get_barang(request):
         respon = make_query(
             f"""
             select id_koleksi 
-            from koleksi_tokoh kt natural join barang ab
+            from koleksi_tokoh K natural join barang B
             where username_pengguna = '{username_user}' and nama_tokoh = '{pilihan_tokoh}';
             """
         )

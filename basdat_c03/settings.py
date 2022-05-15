@@ -54,7 +54,12 @@ INSTALLED_APPS = [
 
     'pekerjaan'
     'menggunakan_barang'
-    'bekerja'
+    'bekerja',
+    'makan',
+    'makanan',
+    'misi',
+    'menjalankan_misi_utama',
+    'level',
 ]
 
 # hapus aja
