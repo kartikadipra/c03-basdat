@@ -1,0 +1,9 @@
+<!-- navbar nentuin role -->
+
+{% if role == "user" %}
+    {%include 'navbar_pemain' %}
+
+{% else %}
+    {% include 'navbar_admin.html' %}
+
+{% endif %}

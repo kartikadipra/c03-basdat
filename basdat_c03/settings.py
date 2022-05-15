@@ -51,6 +51,10 @@ INSTALLED_APPS = [
 
      # Add fitur
     'registrasiPengguna'
+
+    'pekerjaan'
+    'menggunakan_barang'
+    'bekerja'
 ]
 
 # hapus aja
