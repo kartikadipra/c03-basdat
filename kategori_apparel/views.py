@@ -4,16 +4,6 @@ from collections import namedtuple
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-# def kategori_apparel(request):
-#     with connection.cursor() as c:
-#         c.execute("SELECT * FROM PRODUK_APOTEK")
-#         res = dictfetchall(c)
-#     response = {'data_produk_apotek':res}
-#     return render(request,'rud_produk_apotek.html',response)
-
-# def index(request):
-#     return render(request, 'kategori_apparel/index.html')
-
 def index(request):
     cursor = connection.cursor()
     try:
