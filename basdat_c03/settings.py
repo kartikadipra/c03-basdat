@@ -33,7 +33,8 @@ DEBUG = not PRODUCTION
 
 HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME', '')
 
-ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.herokuapp.com']
+# ALLOWED_HOSTS = [f'{HEROKU_APP_NAME}.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 if not PRODUCTION:
     ALLOWED_HOSTS += ['.localhost', '127.0.0.1', '[::1]']
@@ -72,9 +73,11 @@ ROOT_URLCONF = 'basdat_c03.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # beda
         'DIRS': [
             BASE_DIR / 'templates'
         ],
+        ##
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,6 +141,8 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
 
@@ -146,6 +151,7 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = 'static/'
+# beda
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -157,4 +163,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 # Kalo error kita hapus ini
-# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
