@@ -19,9 +19,6 @@ import kategori_apparel.urls
 import koleksi.urls
 import koleksi_tokoh.urls
 
-from bekerja import urls as bekerja
-from pekerjaan import urls as pekerjaan
-from menggunakan_barang import urls as menggunakan_barang
 
 urlpatterns = [
     path('admin/', admin.site.urls),
