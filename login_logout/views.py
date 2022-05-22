@@ -5,8 +5,6 @@ from tools.tools import make_query
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-
-
 def home(request):
     return render(request, 'home.html')
     
