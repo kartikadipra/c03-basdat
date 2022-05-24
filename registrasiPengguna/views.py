@@ -27,3 +27,4 @@ def index(request):
         cursor.close()
 
     return render(request, 'index.html', {'result': result})
+

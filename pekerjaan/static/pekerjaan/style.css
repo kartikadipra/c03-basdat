@@ -1,0 +1,78 @@
+body{
+	background: linear-gradient(110.7deg, #ecbb83 31.7%, #FFFFFF 93.54%);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	width:50%;
+	height: 1px;
+	font-family: 'Lato';
+	color:white;
+}
+
+.container {
+    margin-top: 80px;
+    margin-bottom: 50px;
+    margin-left: 500px;
+    border-radius: 20px;
+    position: absolute;
+}
+
+.title{
+	color: #000000;
+	font-weight: bold;
+    margin-top: 100px;
+}
+
+.form-control, input[type]:focus {
+    height: 70px;
+    padding: 1%;
+    background:rgba(0,0,0,0);
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    outline:none;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    color: #000000;
+    opacity: 0.8;
+  }
+  
+.form-control:focus{
+	background: transparent;
+    border: none;
+    border-bottom: 4px solid #FFFFFF;
+    color: white;
+    display:  block;
+    outline: 0;
+    box-shadow: none;
+}
+
+input[type=text]:focus, textarea:focus {
+  	width: 100%;
+}
+
+#form_pesanan > input::placeholder{
+	color: white;
+}
+
+.btn-green{
+	background-color: white;
+	color: #000000;
+
+}
+
+option{
+	color: black;
+}
+
+@media screen and (max-width:575px) {
+    .container {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width:951px) {
+    .container {
+        margin-top: 120px;
+    }
+}

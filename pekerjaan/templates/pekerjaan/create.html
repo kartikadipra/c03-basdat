@@ -1,0 +1,29 @@
+<html lang="en"></html>
+{% load static %}
+
+{% block script %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'pekerjaan/style.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+{% endblock %}
+{% block content %}
+<body id="create">
+	<div class="col-xs-12 container">
+		<form id="form_pekerjaan" action="{% url 'pekerjaan:create_pekerjaan' %}" method="POST">
+			{% csrf_token %}
+			<h1 class="title text-white">Tambah Pekerjaan</h1>
+			<br>
+			<br>
+
+			{% for form in pekerjaan_form %}
+			{{ form }}
+			<br>
+			{% endfor %}
+			<br>
+			<button class="btn btn-green" type="submit" value="Submit">SIMPAN</button>
+		</form>
+	</div>
+</body>
+{% endblock %}

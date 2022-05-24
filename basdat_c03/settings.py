@@ -51,10 +51,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
      # Add fitur
+    'homepage',
+    'login',
     'registrasiPengguna',
     'kategori_apparel',
     'koleksi',
     'koleksi_tokoh',
+    'pekerjaan',
+    'bekerja',
+    'menggunakan_barang',
 ]
 
 # hapus aja
@@ -99,7 +104,7 @@ WSGI_APPLICATION = 'basdat_c03.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 # Jangan lupa di uncomment kalo perlu
-DATABASE_URL= 'postgres://mpafwjjbldwevd:50c84eb8d286171d50b58f4cede89b2dbb48d94721ba0595bc427a54676abb6f@ec2-54-165-90-230.compute-1.amazonaws.com:5432/d707lr0gagd7tk'
+DATABASE_URL= 'postgres://yruzywsjmbfets:9bc42f192681b9173f1537ef38c9b0aaadafc39a88df9ef902920fd799613c16@ec2-34-227-120-79.compute-1.amazonaws.com:5432/d47mkv3pohakhk'
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',

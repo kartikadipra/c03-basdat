@@ -15,15 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import homepage.urls
 import kategori_apparel.urls
 import koleksi.urls
 import koleksi_tokoh.urls
+import registrasiPengguna.urls
+import login.urls
 
+#Karlina
+import pekerjaan.urls
+import bekerja.urls
+import menggunakan_barang.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('registrasiPengguna.urls')),
+    path('', include('homepage.urls')),
+    path('login/', include(login.urls)),
+    path('registrasiPengguna/', include(registrasiPengguna.urls)),
     path('kategori_apparel/', include(kategori_apparel.urls)),
     path('koleksi/', include(koleksi.urls)),
     path('koleksi_tokoh/', include(koleksi_tokoh.urls)),
+
+    #Karlina
+    path('pekerjaan/', include(pekerjaan.urls)),
+    path('bekerja/', include(bekerja.urls)),
+    path('menggunakan_barang/', include(menggunakan_barang.urls)),
 ]
