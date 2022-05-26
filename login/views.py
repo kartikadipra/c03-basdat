@@ -6,7 +6,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import redirect
 from django.forms import formset_factory
 
-
 # Create your views here.
 	
 def login_page(request):
@@ -35,18 +34,21 @@ def login_page(request):
 					if admin:
 						print("ini admin 2")
 						print(username)
-						request.session['username'] = admin[0][0]
+						cursor.execute("SET search_path to public") 
+						request.session['username'] = admin[0]
 						request.session['isLogin'] = True
 						request.session['role'] = 'Admin'
 						print("ini admin")
+						return redirect('/admin')
 						
 					else:
+						cursor.execute("SET search_path to public")
 						request.session['username'] = username
 						request.session['isLogin'] = True
 						request.session['role'] = 'Pemain'
 						print("ini pemain")
 
-					return HttpResponseRedirect('/')
+						return redirect('/pemain')
 			else:
 				form.add_error("username", "Akun ini tidak ada!")
 				return render(request, 'login/index.html', response)
@@ -58,8 +60,65 @@ def login_page(request):
 		response['form'] = form
 		return render(request,'login/index.html',response)
 
+#===============================================
+# def login_page(request):
+# 	response={}
+# 	response['error'] = False
+# 	form = login_form(request.POST or None)
+# 	response['form'] = form
+# 	if(request.method == 'POST' and form.is_valid):
+# 		username = request.POST['username']
+# 		password = request.POST['password']
+# 		print("masuk kkkk")
+# 		try:
+# 			with connection.cursor() as cursor:
+# 				# print("aaaa")
+# 				# cursor.execute("SET search_path to THECIMS")
+# 				# cursor.execute("SELECT * FROM AKUN WHERE username= %s", [username])
+# 				# isExist = cursor.fetchone()
 
+# 			# if isExist:
+# 			# 	print("B")
+# 				# with connection.cursor() as cursor:
+# 				cursor.execute("SET search_path to THECIMS")
 
+# 				cursor.execute("SELECT * FROM ADMIN WHERE username= %s AND password = %s", [username, password])
+# 				admin = cursor.fetchone()
+
+# 				cursor.execute("SELECT * FROM ADMIN WHERE username= %s AND password = %s", [username, password])
+# 				pemain = cursor.fetchone()
+				
+# 				if admin:
+# 					print("ini admin 2")
+# 					print(username)
+# 					cursor.execute("SET search_path to public") 
+# 					request.session['username'] = admin[0]
+# 					request.session['isLogin'] = True
+# 					request.session['role'] = 'Admin'
+# 					print("ini admin")
+# 					return redirect('/')
+
+# 				elif pemain:
+# 					request.session['username'] = username
+# 					request.session['isLogin'] = True
+# 					request.session['role'] = 'Pemain'
+# 					print("ini pemain")
+
+# 					return redirect('/')
+
+# 				else:
+# 					form.add_error("username", "Akun ini tidak ada!")
+# 					return render(request, 'login/index.html', response)
+
+# 		except Exception as e:
+# 			print(e)
+# 			return render(request, 'login/index.html', response)
+# 	else:
+# 		form = login_form(request.POST or None)
+# 		response['form'] = form
+# 		return render(request,'login/index.html',response)
+
+#===============================================
 # def login_page(request):
 # 	form = login_form()
 # 	return render(request, 'login/index.html', {'form': form})

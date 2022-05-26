@@ -1,8 +1,6 @@
 <html lang="en">
-
-{% load static %}
-
-    <head>
+    {% block content %}
+   <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -22,6 +20,12 @@
                 margin-left: 40px;
                 margin-right: 50px;
             }
+
+            .btn-green{
+                background-color: white;
+                color: #ecbb83;
+                margin-right: 5px;
+            }   
         </style>
         <title>Pekerjaan</title>
     </head>
@@ -34,21 +38,46 @@
         <div>
             <table class="table">
                 <thead class="thead-dark">
-                    <tr>
+                    <tr scope="row">
+                        <th scope="col">No</th>
                         <th scope="col">Nama Pekerjaan</th>
                         <th scope="col">Base Honor</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for res in result %}
-                    <tr>
+                    <tr scope="row">
+                        <td>{{ forloop.counter }}.</td>
                         <td>{{ res.nama }}</td>
                         <td>{{ res.base_honor }}</td>
+                        <td>
+                            <a href="/">
+                                <button type="button" class=" btn btn-green" >
+                                    UPDATE
+                                </button>
+                            </a>
+                            <a href="/">
+                                <button type="button" class=" btn btn-green" >
+                                    DELETE
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </body>
+    {% endblock %}
+</html>  
 
-</html>
+
+
+
+
+
+    
+
+    

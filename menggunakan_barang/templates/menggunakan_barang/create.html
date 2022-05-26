@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "navbar_admin.html" %}
+    {% load static %}
+    <title>THE CIMS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+</head>
+
+
+<body class="Green-Background">
+    <div class="base">
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+        </nav>
+    </div>
+    <div class="Content">
+		<div class="Login-Title-Box text-center">
+			<h3 class="Title-Text White-Font Font-Size-40 font-weight-bold">FORM MENGGUNAKAN BARANG</h3>
+		</div class="Login-Title-Box text-center">
+
+        <form id="form_barang" method="POST" class="Login-Form" action= "{% url 'menggunakan_barang:create' %}"autocomplete="text-center">
+
+            <div class="mb-3 d-flex gap-3 justify-content-center w-50 mx-auto">
+                <p>Nama Tokoh: </p>
+                <select id="select-data-tokoh" name="pilihan_tokoh" class="form-select h-50" onchange="getValueFromSelect()">
+                    <option disabled selected>Pilih Nama Tokoh</option>
+                    {% for data in barang_form %}
+                    <option value="{{ data.nama_tokoh }}">{{ data.Nama_tokoh }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3 d-flex gap-3 justify-content-center w-50 mx-auto">
+                <p>Id Barang: </p>
+                <select id="select-data-tokoh" name="pilihan_tokoh" class="form-select h-50" onchange="getValueFromSelect()">
+                    <option disabled selected>Id Barang</option>
+                    {% for data in barang_form %}
+                    <option value="{{ data.Id_barang}}">{{ data.Id_koleksi }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- {% csrf_token %} -->
+            <!-- {% for form in barang_form %}
+            <option value="{{ form.Nama_tokoh }}">{{ form.Nama_tokoh }}</option>
+            <option value="{{ form.Id_barang }}">{{ Id_barang }}</option>
+            {% endfor %} -->
+
+            <div class="text-center">
+                <button type="submit" value="Submit" class="btn btn-lg ml-auto px-5 Font-Size-18 my-5 Login">PAKAI</button>
+            </div>
+        </div>
+	</div>
+</body>
+</html>
