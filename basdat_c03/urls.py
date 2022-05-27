@@ -16,7 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import level
+import menggunakan_apparel
+import warna_kulit
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('registrasiPengguna.urls'))
+    path('', include('registrasiPengguna.urls')),
+
+    # Tika
+    path('level/', include(level.urls)),
+    path('warna_kulit/', include(warna_kulit.urls)),
+    path('menggunakan_apparel/', include(menggunakan_apparel.urls)),
 ]
