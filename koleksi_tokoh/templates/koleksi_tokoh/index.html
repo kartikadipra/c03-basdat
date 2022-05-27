@@ -11,16 +11,22 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <style>
             h1 {
-                color: rgb(34, 101, 168);
+                color: rgb(0, 0, 0);
                 margin-top: 40px;
                 margin-bottom: 40px;
                 text-align: center;
             }
             
             body {
-                background-color: linen;
+                background: linear-gradient(110.7deg, #ecbb83 31.7%, #FFFFFF 93.54%);
                 margin-left: 40px;
                 margin-right: 50px;
+            }
+
+            .btn-green{
+                background-color: white;
+                color: #ecbb83;
+                margin-right: 5px;
             }
         </style>
         <title>Koleksi Tokoh</title>
@@ -35,17 +41,32 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
+                        <th scope="col">No</th>
                         <th scope="col">ID Koleksi</th>
                         <th scope="col">Username Pengguna</th>
                         <th scope="col">Nama Tokoh</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for res in result %}
                     <tr>
+                        <td>{{ forloop.counter }}</td>
                         <td>{{ res.id_koleksi }}</td>
                         <td>{{ res.username_pengguna }}</td>
                         <td>{{ res.nama_tokoh }}</td>
+                        <td>
+                            <a href="/">
+                                <button type="button" class=" btn btn-green" >
+                                    UPDATE
+                                </button>
+                            </a>
+                            <a href="{% url 'koleksi_tokoh:d_koleksi_tokoh' id_koleksi=res.id_koleksi username_pengguna=res.username_pengguna nama_tokoh=res.nama_tokoh %}">
+                                <button type="button" class=" btn btn-green" >
+                                    DELETE
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

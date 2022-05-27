@@ -18,9 +18,15 @@
 
 	<body>
 		<div class="col-md-12 row container">
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<h1 class="title text-white">SELAMAT DATANG ADMIN!</h1>
-				<a href="/pekerjaan"><button class="btn btn-green">PEKERJAAN</button></a>
+				<!-- <a href="/pekerjaan"><button class="btn btn-green">PEKERJAAN</button></a> -->
+				<a href="{% url 'kategori_apparel:kategori_apparel' %}"><button class="btn btn-green">KATEGORI APPAREL</button></a>
+				<a href="{% url 'kategori_apparel:c_kategori_apparel' %}"><button class="btn btn-green">CREATE KATEGORI APPAREL</button></a>
+				<a href="{% url 'koleksi:koleksi' %}"><button class="btn btn-green">KOLEKSI</button></a>
+				<a href="{% url 'koleksi:c_koleksi' %}"><button class="btn btn-green">CREATE KOLEKSI</button></a>
+				<a href="{% url 'koleksi_tokoh:koleksi_tokoh' %}"><button class="btn btn-green">KOLEKSI TOKOH</button></a>
+				<a href="{% url 'koleksi_tokoh:c_koleksi_tokoh' %}"><button class="btn btn-green">CREATE KOLEKSI TOKOH</button></a>
 			</div>
 		</div>
 	</body>
