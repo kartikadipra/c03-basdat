@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'pekerjaan',
     'bekerja',
     'menggunakan_barang',
+    'makanan',
+    'makan',
 
     # Form
     'crispy_forms',

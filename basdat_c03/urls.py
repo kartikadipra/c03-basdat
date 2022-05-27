@@ -27,6 +27,10 @@ import pekerjaan.urls
 import bekerja.urls
 import menggunakan_barang.urls
 
+#Avel
+import makanan.urls
+import makan.urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
@@ -40,4 +44,8 @@ urlpatterns = [
     path('pekerjaan/', include(pekerjaan.urls)),
     path('bekerja/', include(bekerja.urls)),
     path('menggunakan_barang/', include(menggunakan_barang.urls)),
+
+    #Avel
+    path('makanan/', include(makanan.urls)),
+    path('makan/', include(makan.urls)),
 ]

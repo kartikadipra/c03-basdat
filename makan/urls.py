@@ -1,12 +1,13 @@
 from django.urls import path
 from .views import *
 
+
+app_name = 'makan'
 urlpatterns = [
 
-    path('daftar/', read_makan),
+    path('', read_makan),
 
-    path('create/', create_page),
+    path('create/', create_makan),
 
-    path('create_makanan/', create_makan),
 
 ]

@@ -1,53 +1,58 @@
 from django.shortcuts import render
 from django.db import connection
-from tools.tools import make_query
-from django.http.response import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from collections import namedtuple
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import createForm
 
-# Register your models here.
-def create_page(request):
-    if request.session.has_key('username'):
-        if request.session['role'] == 'admin':
-            return render(request, 'create_makan.html')
-        
-        return HttpResponseRedirect('/makan/daftar/')
+from datetime import datetime
 
-    else:
-        return HttpResponseRedirect('/login')
-    
-@csrf_exempt
-def create_makan(request):
-    if request.session.has_key('username'):
-
-        if request.session['role'] == 'admin':
-
-            if request.method == 'POST':
-
-                new_tokoh = request.POST.get('new_makanan')
-                new_makanan = request.POST.get('new_makanan')
-
-                print(new_tokoh)
-                print(new_makanan)
-                
-
-        return HttpResponseRedirect('/makanan/daftar/')
-        
-    else:
-        return HttpResponseRedirect('/login')
-
+def namedtuplefetchall(cursor):
+    "Return all rows from a cursor as a namedtuple"
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
 
 def read_makan(request):
 
-        if request.session.has_key('username'):
-            res = make_query("SELECT * FROM MAKAN")
-            response = {
-                'result' : res,
-                'role' : request.session['role']
-            }
+    cursor = connection.cursor()
 
-            print(res)
+    try:
+        cursor.execute("SET SEARCH_PATH TO THECIMS")
+        cursor.execute("SELECT * FROM MAKAN")
 
-            return render(request, 'daftar_makan.html',response)
-            
-        else:
-            return HttpResponseRedirect('/login')
+        result = namedtuplefetchall(cursor)
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        cursor.close()
+
+    return render(request, 'daftar_makan.html', {'result': result})
+
+def create_makan(request):
+
+    if request.method == 'POST':
+
+        form = createForm(request.POST)
+
+        if form.is_valid():
+
+
+            username_pengguna = form.cleaned_data['username_pengguna']
+            nama_makanan = form.cleaned_data['nama_makanan']
+            nama_tokoh = form.cleaned_data['nama_tokoh']
+            waktu = datetime.now()
+
+            with connection.cursor() as c:
+
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO MAKAN VALUES ('{username_pengguna}', {nama_tokoh},{waktu},{nama_makanan})")
+
+        return HttpResponseRedirect(reverse('makan:makan'))
+
+    create_form = createForm()
+    response = {'create_form':create_form}
+    return render(request,'create_makan.html',response)
+
