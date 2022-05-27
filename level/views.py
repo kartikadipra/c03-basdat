@@ -16,7 +16,7 @@ def rud_level(request):
     finally:
         cursor.close()
 
-    return render(request, 'koleksi/index.html', {'result': result})
+    return render(request, 'level/index.html', {'result': result})
 
 def c_level(request):
     if request.method == 'POST':
@@ -27,16 +27,16 @@ def c_level(request):
             with connection.cursor() as c:
                 c.execute("SET SEARCH_PATH TO THECIMS")
                 c.execute(f"INSERT INTO LEVEL VALUES ('{level}', {xp})")
-        return HttpResponseRedirect(reverse('koleksi:koleksi'))
+        return HttpResponseRedirect(reverse('level:level'))
     create_form = createForm()
     response = {'create_form':create_form}
-    return render(request,'koleksi/create.html',response)
+    return render(request,'level/create.html',response)
 
 def d_level(request, level, xp):
     with connection.cursor() as c:
         c.execute("SET SEARCH_PATH TO THECIMS")
         c.execute("DELETE FROM LEVEL WHERE Level = %s AND XP = %s", [level, xp])
-    return HttpResponseRedirect(reverse('koleksi:koleksi'))
+    return HttpResponseRedirect(reverse('level:level'))
 
 def namedtuplefetchall(cursor):
     "Return all rows from a cursor as a namedtuple"
