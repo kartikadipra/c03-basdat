@@ -30,6 +30,8 @@ import menggunakan_barang.urls
 #Avel
 import makanan.urls
 import makan.urls
+import misi.urls
+import menjalankan_misi_utama.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,4 +50,6 @@ urlpatterns = [
     #Avel
     path('makanan/', include(makanan.urls)),
     path('makan/', include(makan.urls)),
+    path('misi/', include(misi.urls)),
+    path('menjalankan_misi_utama/', include(menjalankan_misi_utama.urls)),
 ]
