@@ -1,3 +1,4 @@
+import datetime
 from django import forms
 
 class barangForm(forms.Form):
@@ -7,8 +8,7 @@ class barangForm(forms.Form):
     nama_tokoh = forms.CharField(label='Nama Tokoh', widget=forms.TextInput(attrs={'class': 'form-control col-md-6',
         'id': 'nama-tokoh', 'placeholder': "Nama Tokoh"}))
 
-    waktu = forms.DateTimeField(label='waktu ', widget=forms.TextInput(attrs={'class': 'form-control col-md-6',
-    'id': 'waktu ', 'placeholder': "waktu "}))
+    waktu = forms.DateField(initial=datetime.date.today)
 
     id_barang = forms.CharField(label='id_barang', widget=forms.TextInput(attrs={'class': 'form-control col-md-6',
     'id': 'barang', 'placeholder': "Barang"}))

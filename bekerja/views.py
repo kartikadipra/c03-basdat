@@ -1,3 +1,4 @@
+from datetime import timezone, datetime
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,6 +7,7 @@ from django.db import connection
 from collections import namedtuple
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
 
 from bekerja.forms import bekerjaForm
 
@@ -39,12 +41,15 @@ def create(request):
     if request.method == 'POST':
         form = bekerjaForm(request.POST)
         if form.is_valid():
+            username_pengguna = form.cleaned_data['username_pengguna']
             nama_tokoh = form.cleaned_data['nama_tokoh']
+            timestamp = form.cleaned_data['timestamp']
             nama_pekerjaan = form.cleaned_data['nama_pekerjaan']
-            base_honor = form.cleaned_data['base_honor']
+            jumlah_keberangkatan = form.cleaned_data['jumlah_keberangkatan']
+            honor = form.cleaned_data['honor']
             with connection.cursor() as c:
                 c.execute("SET SEARCH_PATH TO THECIMS")
-                c.execute(f"INSERT INTO BEKERJA VALUES ('{nama_tokoh}'.'{nama_pekerjaan}', '{base_honor}')")
+                c.execute(f"INSERT INTO BEKERJA VALUES ('{username_pengguna}', '{nama_tokoh}', '{timestamp}', '{nama_pekerjaan}', '{jumlah_keberangkatan}', '{honor}')")
         return HttpResponseRedirect(reverse('bekerja:read'))
     create_form = bekerjaForm()
     response = {'create_form':create_form}
