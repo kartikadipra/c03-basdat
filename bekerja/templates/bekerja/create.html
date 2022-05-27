@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "navbar_admin.html" %}
+    {% load static %}
+    <title>THE CIMS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+</head>
+
+
+<body class="Green-Background">
+    <div class="base">
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+        </nav>
+    </div>
+    <div class="Content">
+		<div class="Login-Title-Box text-center">
+			<h3 class="Title-Text White-Font Font-Size-40 font-weight-bold">MULAI BEKERJA</h3>
+		</div class="Login-Title-Box text-center">
+
+        <form id="form_bekerja" method="POST" class="Login-Form" action= "{% url 'bekerja:create' %}"autocomplete="text-center">
+
+            <div class="mb-3 d-flex gap-3 justify-content-center w-50 mx-auto">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr scope="row">
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Tokoh</th>
+                        <th scope="col">Nama Pekerjaan</th>
+                        <th scope="col">Base Honor</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                    {% for res in result %}
+                    <tr scope="row">
+                        <td>{{ forloop.counter }}.</td>
+                        <td>{{ res.nama_tokoh }}</td>
+                        <td>{{ res.nama_pekerjaan }}</td>
+                        <td>{{ res.honor }}</td>
+                        <td class="d-flex justify-content-center gap-3">
+                            <a href="/bekerja/read/">
+                                <button type="button" class="btn btn-secondary" >
+                                    Mulai Bekerja
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>  
+
+        </div>
+	</div>
+</body>
+</html>

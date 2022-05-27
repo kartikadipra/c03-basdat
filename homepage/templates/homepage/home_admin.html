@@ -20,6 +20,13 @@
 		<div class="col-md-12 row container">
 			<div class="col-md-6">
 				<h1 class="title text-white">SELAMAT DATANG ADMIN!</h1>
+
+				<div>
+					<h3>Hello {{ request.session.username }} 🤙😊</h1>
+					<h5>Berikut adalah informasi mengenai diri kamu</h5>
+					<h5>Username: {{ request.session.username }}</h5>
+				</div>
+
 				<a href="/pekerjaan"><button class="btn btn-green">PEKERJAAN</button></a>
 			</div>
 		</div>

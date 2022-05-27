@@ -1,0 +1,30 @@
+<html lang="en"></html>
+{% load static %}
+
+{% block script %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'pekerjaan/style.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+{% endblock %}
+{% block content %}
+<body id="create">
+	<div class="col-xs-12 container">
+			<h1 class="title text-white">Update Pekerjaan</h1>
+                <form id="form_pekerjaan" method="POST" class="Login-Form" action= "{% url 'pekerjaan:update' %}"autocomplete="text-center">
+                
+                    <div class="mb-3 d-flex gap-3 justify-content-center w-50 mx-auto">
+                        <label for="nama">Nama Pekerjaan:</label>
+                        <input type="text" class="form-control" id="nama" placeholder="Enter job name" name="nama">
+                      </div>
+                      <div class="mb-3 d-flex gap-3 justify-content-center w-50 mx-auto">
+                        <label for="base">Base Salary:</label>
+                        <input type="text" class="form-control" id="base" placeholder="Enter base salary" name="base">
+                      </div>
+                      <a href="/pekerjaan/read"><button class="btn btn-green" type="submit" 
+                        value="Submit">SIMPAN</button></a>
+		</form>
+	</div>
+</body>
+{% endblock %}

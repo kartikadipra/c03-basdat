@@ -40,8 +40,8 @@
                 <p>Id Barang: </p>
                 <select id="select-data-tokoh" name="pilihan_tokoh" class="form-select h-50" onchange="getValueFromSelect()">
                     <option disabled selected>Id Barang</option>
-                    {% for data in barang_form %}
-                    <option value="{{ data.Id_barang}}">{{ data.Id_koleksi }}</option>
+                    {% for form in barang_form %}
+                    <option value="{{ form.Id_barang }}">{{ form.Id_barang }}</option>
                     {% endfor %}
                 </select>
             </div>
