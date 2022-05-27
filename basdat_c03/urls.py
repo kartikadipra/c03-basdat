@@ -27,6 +27,12 @@ import pekerjaan.urls
 import bekerja.urls
 import menggunakan_barang.urls
 
+#Avel
+import makanan.urls
+import makan.urls
+import misi.urls
+import menjalankan_misi_utama.urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('homepage.urls')),
@@ -40,4 +46,10 @@ urlpatterns = [
     path('pekerjaan/', include(pekerjaan.urls)),
     path('bekerja/', include(bekerja.urls)),
     path('menggunakan_barang/', include(menggunakan_barang.urls)),
+
+    #Avel
+    path('makanan/', include(makanan.urls)),
+    path('makan/', include(makan.urls)),
+    path('misi/', include(misi.urls)),
+    path('menjalankan_misi_utama/', include(menjalankan_misi_utama.urls)),
 ]

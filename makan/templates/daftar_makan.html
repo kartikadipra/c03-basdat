@@ -14,7 +14,7 @@
                 margin-bottom: 40px;
                 text-align: center;
             }
-            
+
             body {
                 background: linear-gradient(110.7deg, #ecbb83 31.7%, #FFFFFF 93.54%);
                 margin-left: 40px;
@@ -25,57 +25,36 @@
                 background-color: white;
                 color: #ecbb83;
                 margin-right: 5px;
-            }   
+            }
         </style>
-        <title>Makanan</title>
+        <title>Makan</title>
     </head>
 
     <body>
         <div class="page-header">
-            <h1>DAFTAR MAKANAN</h1>
+            <h1>DAFTAR MAKAN</h1>
         </div>
 
         <div>
             <table class="table">
                 <thead class="thead-dark">
                     <tr scope="row">
-                        <th scope="col">Nama Misi</th>
-                        <th scope="col">Efek Energi</th>
-                        <th scope="col">Efek Hubungan Sosial</th>
-                        <th scope="col">Efek Kelaparan</th>
-                        <th scope="col">Syarat Energi</th>
-                        <th scope="col">Syarat Hubungan Sosial</th>
-                        <th scope="col">Completion Time</th>
-                        <th scope="col">Reward Koin</th>
-                        <th scope="col">Reward XP</th>
-                        <th scope="col">Deskripsi</th>
-                        <th>Action</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Username Pengguna</th>
+                        <th scope="col">Nama Tokoh</th>
+                        <th scope="col">Waktu</th>
+                        <th scope="col">Nama Makanan</th>
                     </tr>
                 </thead>
-
 
                 <tbody>
                     {% for res in result %}
                     <tr scope="row">
                         <td>{{ forloop.counter }}.</td>
-                        <td>{{ res.nama }}</td>
-                        <td>{{ res.efek_energi }}</td>
-                        <td>{{ res.efek_hubungan_sosial }}</td>
-                        <td>{{ res.efek_kelaparan }}</td>
-                        <td>{{ res.syarat_energi }}</td>
-                        <td>{{ res.syarat_hubungan_sosial }}</td>
-                        <td>{{ res.syarat_kelaparan }}</td>
-                        <td>{{ res.completion_time }}</td>
-                        <td>{{ res.reward_koin }}</td>
-                        <td>{{ res.reward_xp }}</td>
-                        <td>{{ res.deskripsi }}</td>
-                        <td>
-                            <a href="/">
-                                <button type="button" class=" btn btn-green" >
-                                    DELETE
-                                </button>
-                            </a>
-                        </td>
+                        <td>{{ res.username_pengguna }}</td>
+                        <td>{{ res.nama_tokoh }}</td>
+                        <td>{{ res.waktu }}</td>
+                        <td>{{ res.nama_makanan }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -83,4 +62,4 @@
         </div>
     </body>
     {% endblock %}
-</html>  
+</html>

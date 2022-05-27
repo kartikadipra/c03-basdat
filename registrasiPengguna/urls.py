@@ -1,9 +1,9 @@
 from django.urls import path
+from login import views
+from .views import *
 
-from . import views
-
-app_name = 'home'
-
+app_name = 'registrasiPengguna'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('RegistrasiAdmin', registadmin),
+    path('RegistrasiPemain', registerPemain),
 ]

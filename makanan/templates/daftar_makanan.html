@@ -39,37 +39,29 @@
             <table class="table">
                 <thead class="thead-dark">
                     <tr scope="row">
-                        <th scope="col">Nama Misi</th>
-                        <th scope="col">Efek Energi</th>
-                        <th scope="col">Efek Hubungan Sosial</th>
-                        <th scope="col">Efek Kelaparan</th>
-                        <th scope="col">Syarat Energi</th>
-                        <th scope="col">Syarat Hubungan Sosial</th>
-                        <th scope="col">Completion Time</th>
-                        <th scope="col">Reward Koin</th>
-                        <th scope="col">Reward XP</th>
-                        <th scope="col">Deskripsi</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Makanan</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Tingkat Energi</th>
+                        <th scope="col">Tingkat Kelaparan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-
 
                 <tbody>
                     {% for res in result %}
                     <tr scope="row">
                         <td>{{ forloop.counter }}.</td>
                         <td>{{ res.nama }}</td>
-                        <td>{{ res.efek_energi }}</td>
-                        <td>{{ res.efek_hubungan_sosial }}</td>
-                        <td>{{ res.efek_kelaparan }}</td>
-                        <td>{{ res.syarat_energi }}</td>
-                        <td>{{ res.syarat_hubungan_sosial }}</td>
-                        <td>{{ res.syarat_kelaparan }}</td>
-                        <td>{{ res.completion_time }}</td>
-                        <td>{{ res.reward_koin }}</td>
-                        <td>{{ res.reward_xp }}</td>
-                        <td>{{ res.deskripsi }}</td>
+                        <td>{{ res.harga }}</td>
+                        <td>{{ res.tingkat_energi }}</td>
+                        <td>{{ res.tingkat_kelaparan }}</td>
                         <td>
+                            <a href="/">
+                                <button type="button" class=" btn btn-green" >
+                                    UPDATE
+                                </button>
+                            </a>
                             <a href="/">
                                 <button type="button" class=" btn btn-green" >
                                     DELETE

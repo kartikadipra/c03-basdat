@@ -1,98 +1,58 @@
 from django.shortcuts import render
-
-from urllib import response
-from django.contrib import admin
-from django.http import HttpResponseRedirect
-
-from django.shortcuts import render
 from django.db import connection
-from tools.tools import make_query
-from django.http.response import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from collections import namedtuple
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import createForm
+
+from datetime import datetime
+
+def namedtuplefetchall(cursor):
+    "Return all rows from a cursor as a namedtuple"
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
+def read_menjalankan_misi(request):
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SET SEARCH_PATH TO THECIMS")
+        cursor.execute("SELECT * FROM MENJALANKAN_MISI")
+
+        result = namedtuplefetchall(cursor)
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        cursor.close()
+
+    return render(request, 'daftar_menjalankan_misi.html', {'result': result})
 
 
-# Register your models here.
-def create_page(request):
-    if request.session.has_key('username'):
-        if request.session['role'] == 'admin':
-            return render(request, 'create_melakukan_misi_utama.html')
-        
-        return HttpResponseRedirect('/melakukan_misi_utama/daftar/')
+def create_menjalankan_misi(request):
 
-    else:
-        return HttpResponseRedirect('/login')
-    
-@csrf_exempt
-def create_melakukan_misi_utama(request):
-    if request.session.has_key('username'):
+    if request.method == 'POST':
 
-        if request.session['role'] == 'admin':
+        form = createForm(request.POST)
 
-            if request.method == 'POST':
-
-                new_nama_tokoh = request.POST.get('new_nama_tokoh')
-                new_nama_misi = request.POST.get('new_nama_misi')
-
-                print(new_nama_tokoh)
-                print(new_nama_misi)
-
-        return HttpResponseRedirect('/melakukan_misi_utama/daftar/')
-        
-    else:
-        return HttpResponseRedirect('/login')
+        if form.is_valid():
 
 
-def read_melakukan_misi_utama(request):
+            username_pengguna = form.cleaned_data['username_pengguna']
+            nama_misi = form.cleaned_data['nama_misi']
+            nama_tokoh = form.cleaned_data['nama_tokoh']
+            status = "In Progress"
 
-        if request.session.has_key('username'):
-            res = make_query("SELECT * FROM MELAKUKAN_MISI_UTAMA")
-            response = {
-                'result' : res,
-                'role' : request.session['role']
-            }
+            with connection.cursor() as c:
 
-            print(res)
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO MENJALANKAN_MISI VALUES ('{username_pengguna}', {nama_tokoh},{nama_misi},{status})")
 
-            return render(request, 'daftar_melakukan_misi_utama.html',response)
-            
-        else:
-            return HttpResponseRedirect('/login')
+        return HttpResponseRedirect(reverse('menjalankan_misi_utama:menjalankan_misi_utama'))
 
-
-def page_update_melakukan_misi_utama(request, melakukan_misi_lama):
-
-    if request.session.has_key('username'):
-
-        if request.session['role'] == 'admin':
-
-            print("melakukan_misi_lama = " + melakukan_misi_lama)
-
-            respon = make_query(f"SELECT * FROM MELAKUKAN_MISI_UTAMA WHERE MELAKUKAN_MISI_UTAMA = {melakukan_misi_lama};")
-            print(respon)
-
-            return render(request, 'update_melakukan_misi_utama.html', {'result' : respon})
-
-        else:
-            return HttpResponseRedirect('/melakukan_misi_utama/daftar/')
-
-    else:
-        return HttpResponseRedirect('/login')
-
-@csrf_exempt
-def update_melakukan_misi_utama(request, status_lama):
-
-    print("status_lama : " + status_lama)
-
-    if request.session.has_key('username'):
-
-        if request.session['role'] == 'admin':
-            
-            if request.session['role'] == 'POST':
-                status_baru = request.POST.get('status_baru')
-                print(status_baruu)
-                respon = make_query("SELECT * FROM MELAKUKAN_MISI_UTAMA;")
-
-        return HttpResponseRedirect('/melakukan_misi_utama/daftar/')
-
-    else:
-        return HttpResponseRedirect('/login')
+    create_form = createForm()
+    response = {'create_form':create_form}
+    return render(request,'create_menjalankan.html',response)
