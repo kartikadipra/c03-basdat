@@ -1,8 +1,72 @@
-h1 {
-    text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 50px;
-    font-weight: 500;
-    color: chocolate;
-    margin-top: 100px;
+body {
+    background-color: #ecbb83;
+}
+
+/* Profil */
+.container {
+    margin-top: 80px;
+    margin-bottom: 50px;
+    border-radius: 20px;
+}
+
+.Profil {
+  padding: 3% 0;
+}
+
+.User-Image-Icon {
+    background-color: lightpink;
+	width: 230px;
+	border-radius: 50%;
+}
+
+.User-Image {
+    margin: 13% 0 0 15%;
+}
+
+/* Login */
+.Login-Title-Box {
+    margin-top: 150px;
+}
+
+.Login-Form {
+    padding: 0 25%;
+}
+
+.form-control, input[type]:focus {
+    height: 70px;
+    padding: 1%;
+    background:rgba(0,0,0,0);
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    outline:none;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+  color: #e0e0d1;
+  opacity: 0.8;
+}
+
+.errorlist {
+    font-size: 15px;
+    font-weight: bold;
+    color: #CC3434;
+}
+
+.Login a {
+    text-decoration: none;
+}
+
+
+@media screen and (max-width:951px) {
+    .container {
+        margin-top: 120px;
+    }
+}
+
+@media screen and (max-width:575px) {
+    .container {
+        margin-top: 80px;
+    }
 }
