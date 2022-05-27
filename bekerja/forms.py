@@ -7,5 +7,5 @@ class bekerjaForm(forms.Form):
     nama_pekerjaan = forms.TextField(label='Nama Pekerjaan', widget=forms.TextInput(attrs={'class': 'form-control col-md-6',
         'id': 'nama-pekerjaan', 'placeholder': "Nama Pekerjaan"}))
 
-    base_salary = forms.IntegerField(label='Base Honor', widget=forms.NumberInput(attrs={'class': 'form-control col-md-6',
+    base_honor = forms.IntegerField(label='Base Honor', widget=forms.NumberInput(attrs={'class': 'form-control col-md-6',
         'id': 'base-salary', 'placeholder': "Base Salary"}))

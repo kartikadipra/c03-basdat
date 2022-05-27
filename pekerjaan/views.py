@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.db import connection
 from collections import namedtuple
@@ -14,21 +13,21 @@ from pekerjaan.form import pekerjaanForm
 
 #Create
 def create_pekerjaan(request):
-	if (request.method == "POST"):
-		form = pekerjaanForm(request.POST)
-		if(form.is_valid()):
-			with connection.cursor() as cursor:
-				nama_tokoh = request.POST['nama_tokoh']
-				nama_pekerjaan = request.POST['nama_pekerjaan']
-				base_salary = request.POST['base_salary']
-				cursor.execute("INSERT INTO PEKERJAAN VALUES(%s, %s, %s)", [nama_tokoh, nama_pekerjaan, base_salary])
+    # if request.session['role'] != 'admin':
+    #     return HttpResponseRedirect(reverse('/'))
+    if request.method == 'POST':
+        form = pekerjaanForm(request.POST)
+        if form.is_valid():
+            nama_pekerjaan = form.cleaned_data['nama_pekerjaan']
+            base_honor = form.cleaned_data['base_honor']
+            with connection.cursor() as c:
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO PEKERJAAN VALUES ('{nama_pekerjaan}', {base_honor})")
+        return HttpResponseRedirect(reverse('pekerjaan:read'))
+    create_form = pekerjaanForm()
+    response = {'create_form':create_form}
+    return render(request,'pekerjaan/create.html',response)
 
-			return redirect("/pekerjaan/")
-
-	form = pekerjaanForm()
-	response = {}
-	response["pekerjaan_form"] = form
-	return render(request, 'pekerjaan/create.html', response)
 
 
 #Read
