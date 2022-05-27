@@ -1,93 +1,66 @@
 from django.shortcuts import render
-
-from urllib import response
-from django.contrib import admin
-from django.http import HttpResponseRedirect
-
-from django.shortcuts import render
 from django.db import connection
-from tools.tools import make_query
-from django.http.response import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
+from collections import namedtuple
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+#from .forms import createForm
 
-
-# Register your models here.
-def create_page(request):
-    if request.session.has_key('username'):
-        if request.session['role'] == 'admin':
-            return render(request, 'create_misi_utama.html')
-        
-        return HttpResponseRedirect('/misi_utama/daftar/')
-
-    else:
-        return HttpResponseRedirect('/login')
-    
-@csrf_exempt
-def create_misi_utama(request):
-    if request.session.has_key('username'):
-
-        if request.session['role'] == 'admin':
-
-            if request.method == 'POST':
-
-                new_misi_utama = request.POST.get('new_misi_utama')
-                new_efek_energi = request.POST.get('new_efek_energi')
-                new_efek_hubungan = request.POST.get('new_efek_sosial')
-                new_efek_kelaparan = request.POST.get('new_efek_kelaparan')
-
-                new_syarat_energi = request.POST.get('new_syarat_energi')
-                new_syarat_hubungan = request.POST.get('new_syarat_sosial')
-                new_syarat_kelaparan = request.POST.get('new_syarat_kelaparan')
-
-                completion_time = request.POST.get('completion_time')
-                reward_koin = request.POST.get('reward_koin')
-                reward_xp = request.POST.get('reward_xp')
-                deskripsi = request.POST.get('deskripsi')
-
-                print(new_misi_utama)
-                print(new_efek_energi)
-                print(new_efek_hubungan)
-                print(new_efek_kelaparan)
-
-                print(new_syarat_energi)
-                print(new_syarat_hubungan)
-                print(new_syarat_kelaparan)
-
-                print(completion_time)
-                print(reward_koin)
-                print(reward_xp)
-                print(deskripsi)
-
-        return HttpResponseRedirect('/misi_utama/daftar/')
-        
-    else:
-        return HttpResponseRedirect('/login')
-
+def namedtuplefetchall(cursor):
+    "Return all rows from a cursor as a namedtuple"
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
 
 def read_misi_utama(request):
 
-        if request.session.has_key('username'):
-            res = make_query("SELECT * FROM MISI_UTAMA")
-            response = {
-                'result' : res,
-                'role' : request.session['role']
-            }
+    cursor = connection.cursor()
 
-            print(res)
+    try:
+        cursor.execute("SET SEARCH_PATH TO THECIMS")
+        cursor.execute("SELECT * FROM MISI, MISI_UTAMA WHERE  MISI.nama = MISI_UTAMA.nama")
 
-            return render(request, 'daftar_misi_utama.html',response)
-            
-        else:
-            return HttpResponseRedirect('/login')
+        result = namedtuplefetchall(cursor)
 
-def delete_misi_utama(request, misi_utama_lama):
+    except Exception as e:
+        print(e)
 
-    print("misi_utama_lama : " + misi_utama_lama)
-    if request.session.has_key('username'):
-        if request.session['role'] == 'admin':
-            respon = make_query("SELECT * FROM MISI_UTAMA;")
+    finally:
+        cursor.close()
 
-        return HttpResponseRedirect('misi_utama/daftar/')
+    return render(request, 'daftar_misi_utama.html', {'result': result})
 
-    else:
-        return HttpResponseRedirect('/login')
+
+def create_misi_utama(request):
+
+    if request.method == 'POST':
+
+        form = createForm(request.POST)
+
+        if form.is_valid():
+
+            nama = form.cleaned_data['nama']
+            efek_energi = form.cleaned_data['efek_energi']
+            efek_hubungan_sosial = form.cleaned_data['efek_hubungan_sosial']
+            efek_kelaparan = form.cleaned_data['efek_kelaparan']
+
+            syarat_energi = form.cleaned_data['syarat_energi']
+            syarat_hubungan_sosial = form.cleaned_data['syarat_hubungan_sosial']
+            syarat_kelaparan = form.cleaned_data['syarat_kelaparan']
+
+            completion_time = form.cleaned_data['completion_time']
+            reward_koin = form.cleaned_data['reward_koin']
+            reward_xp = form.cleaned_data['reward_xp ']
+
+            deskripsi = form.cleaned_data['deskripsi']
+
+
+            with connection.cursor() as c:
+
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO MISI VALUES ('{nama}', {efek_energi},{efek_hubungan_sosial},{efek_kelaparan},{syarat_energi},{syarat_hubungan_sosial},{syarat_kelaparan},{completion_time},{reward_koin},{reward_xp},{deskripsi})")
+                c.execute(f"INSERT INTO MISI_UTAMA VALUES ('{nama}')")
+        return HttpResponseRedirect(reverse('makanan:makanan'))
+
+    create_form = createForm()
+    response = {'create_form':create_form}
+    return render(request,'create_misi_utama.html',response)

@@ -1,88 +1,46 @@
-{% extends "header.html" %} {% load static %}
-{% block title %} The Cims {% endblock %}
-{% block content %}
-    {% include 'navbar.html' %}
+<html lang="en">
 
-    <div class="w-50 mx-auto text-center my-3 p-3 border border-3 border-dark">
-        <h3>FORM BUAT MISI UTAMA</h3>
-        <hr>
-        <form method="POST" action="/misi/create_misi_utama/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Misi Utama</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <style>
+        h1 {
+                color: rgb(0, 0, 0);
+                margin-top: 40px;
+                margin-bottom: 40px;
+                text-align: center;
+        }
 
-            <div class="mb-3 d-flex justify-content-center">
-                <label for="new_misi_utama" class="form-label px-3">Nama Misi Utama</label>
-                <input type="text" class="form-control w-75 h-25" name="new_misi_utama"
-                    id="pb" required placeholder="Type here" />
+        body {
+            background: linear-gradient(110.7deg, #ecbb83 31.7%, #FFFFFF 93.54%);
+            margin-left: 40px;
+            margin-right: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Create Misi Utama</h1>
+    </div>
+    <div>
+        <form action='' method="POST" class="form-group">
+        {% csrf_token %}
+            {% for field in create_form.visible_fields %}
+            <div class="form-group">
+                {{ field.label_tag }} {{ field }}
             </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_efek_energi" class="form-label px-3">Efek Energi</label>
-              <input type="text" class="form-control w-75 h-25" name="new_efek_energi"
-                  id="pb" required placeholder="Type here" />
+            {% endfor %}
+            <div class="centre-items">
+                <input type="submit" class="btn btn-dark" value="Create">
             </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_efek_energi" class="form-label px-3">Efek Energi</label>
-              <input type="text" class="form-control w-75 h-25" name="new_efek_energi"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_efek_hubungan" class="form-label px-3">Efek Hubungan</label>
-              <input type="text" class="form-control w-75 h-25" name="new_efek_hubungan"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_efek_kelaparan" class="form-label px-3">Efek Kelaparan</label>
-              <input type="text" class="form-control w-75 h-25" name="new_efek_kelaparan"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_syarat_energi" class="form-label px-3">Syarat Energi</label>
-              <input type="text" class="form-control w-75 h-25" name="new_syarat_energi"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_syarat_hubungan" class="form-label px-3">Syarat Hubungan</label>
-              <input type="text" class="form-control w-75 h-25" name="new_syarat_hubungan"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="new_syarat_kelaparan" class="form-label px-3">Syarat Kelaparan/label>
-              <input type="text" class="form-control w-75 h-25" name="new_syarat_kelaparan"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="completion_time" class="form-label px-3">Completion Time>
-              <input type="text" class="form-control w-75 h-25" name="completion_time"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="reward_koin" class="form-label px-3">Reward Koin>
-              <input type="text" class="form-control w-75 h-25" name="reward_koin"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="reward_xp" class="form-label px-3">Reward XP>
-              <input type="text" class="form-control w-75 h-25" name="reward_xp"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-            <div class="mb-3 d-flex justify-content-center">
-              <label for="deskripsi" class="form-label px-3">Deskripsi>
-              <input type="text" class="form-control w-75 h-25" name="deskripsi"
-                  id="pb" required placeholder="Type here" />
-            </div>
-
-
-            <button type="submit" class="btn btn-primary">SIMPAN</button>
         </form>
     </div>
-{% endblock %}
+</body>
+
+</html>
