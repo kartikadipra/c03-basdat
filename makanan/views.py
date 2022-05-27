@@ -42,19 +42,24 @@ def create_makanan(request):
 
 def read_makanan(request):
 
-        if request.session.has_key('username'):
-            res = make_query("SELECT * FROM MAKANAN")
-            response = {
-                'result' : res,
-                'role' : request.session['role']
-            }
 
-            print(res)
 
-            return render(request, 'daftar_makanan.html',response)
-            
-        else:
-            return HttpResponseRedirect('/login')
+def read(request):
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SET SEARCH_PATH TO THECIMS")
+        cursor.execute("SELECT * FROM PEKERJAAN")
+
+        result = namedtuplefetchall(cursor)
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        cursor.close()
+
+    return render(request, 'pekerjaan/read.html', {'result': result})
 
 
 def delete_makanan(request, makanan_lama):
