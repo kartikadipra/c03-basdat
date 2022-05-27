@@ -4,5 +4,5 @@ from .views import *
 app_name = 'bekerja'
 urlpatterns = [
 	path('', read, name='read'),
-	path('create', create, name='create')
+	path('create/', create, name='create')
 ]

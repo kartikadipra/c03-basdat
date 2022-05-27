@@ -7,29 +7,48 @@ from collections import namedtuple
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from bekerja.forms import bekerjaForm
+
 #CR BEKERJA
 
 #Create
-def create(request, nama_tokoh, pekerjaan, base_honor):
-    print("nama_tokoh = " + nama_tokoh)
-    print("nama pekerjaan = " + pekerjaan)
-    print("base honor = " + base_honor)
+# def create(request, nama_tokoh, pekerjaan, base_honor):
+#     print("nama_tokoh = " + nama_tokoh)
+#     print("nama pekerjaan = " + pekerjaan)
+#     print("base honor = " + base_honor)
 
-    cursor = connection.cursor()
+#     cursor = connection.cursor()
 
-    try:
-        cursor.execute("SET SEARCH_PATH TO THECIMS")
-        cursor.execute("SELECT * FROM BEKERJA")
+#     try:
+#         cursor.execute("SET SEARCH_PATH TO THECIMS")
+#         cursor.execute("SELECT * FROM BEKERJA")
 
-        result = namedtuplefetchall(cursor)
+#         result = namedtuplefetchall(cursor)
 
-    except Exception as e:
-        print(e)
+#     except Exception as e:
+#         print(e)
 
-    finally:
-        cursor.close()
+#     finally:
+#         cursor.close()
 
-    return render(request, 'bekerja/create.html', {'result': result})
+#     return render(request, 'bekerja/create.html', {'result': result})
+
+def create(request):
+    # if request.session['role'] != 'admin':
+    #     return HttpResponseRedirect(reverse('/'))
+    if request.method == 'POST':
+        form = bekerjaForm(request.POST)
+        if form.is_valid():
+            nama_tokoh = form.cleaned_data['nama_tokoh']
+            nama_pekerjaan = form.cleaned_data['nama_pekerjaan']
+            base_honor = form.cleaned_data['base_honor']
+            with connection.cursor() as c:
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO BEKERJA VALUES ('{nama_tokoh}'.'{nama_pekerjaan}', '{base_honor}')")
+        return HttpResponseRedirect(reverse('bekerja:read'))
+    create_form = bekerjaForm()
+    response = {'create_form':create_form}
+    return render(request,'bekerja/create.html',response)
 
 #Read
 def read(request):

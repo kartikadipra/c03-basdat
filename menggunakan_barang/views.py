@@ -10,28 +10,48 @@ from collections import namedtuple
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from menggunakan_barang.form import barangForm
+from menggunakan_barang.forms import barangForm
 from django.shortcuts import redirect
 
 #CR MENGGUNAKAN BARANG
 
 # #Create
-def create(request):
-	if (request.method == "POST"):
-		form = barangForm(request.POST)
-		if(form.is_valid()):
-			with connection.cursor() as cursor:
-				Nama_tokoh = request.POST['Nama_tokoh']
-				Id_barang = request.POST['Id_barang']
+# def create(request):
+# 	if (request.method == "POST"):
+# 		form = barangForm(request.POST)
+# 		if(form.is_valid()):
+# 			with connection.cursor() as cursor:
+# 				Nama_tokoh = request.POST['Nama_tokoh']
+# 				Id_barang = request.POST['Id_barang']
 				
-				cursor.execute("INSERT INTO MENGGUNAKAN_BARANG VALUES(%s, %s)", [Nama_tokoh, Id_barang])
+# 				cursor.execute("INSERT INTO MENGGUNAKAN_BARANG VALUES(%s, %s)", [Nama_tokoh, Id_barang])
 
-			return redirect("/menggunakan_barang/")
+# 			return redirect("/menggunakan_barang/")
 
-	form = barangForm()
-	response = {}
-	response["barang_form"] = form
-	return render(request, 'menggunakan_barang/create.html', response)
+# 	form = barangForm()
+# 	response = {}
+# 	response["barang_form"] = form
+# 	return render(request, 'menggunakan_barang/create.html', response)
+
+def create(request):
+    # if request.session['role'] != 'admin':
+    #     return HttpResponseRedirect(reverse('/'))
+    if request.method == 'POST':
+        form = barangForm(request.POST)
+        if form.is_valid():
+            username_pengguna= form.cleaned_data['username_pengguna']
+            nama_tokoh = form.cleaned_data['nama_tokoh']
+            waktu= form.cleaned_data['waktu']
+            id_barang = form.cleaned_data['id_barang']
+            
+
+            with connection.cursor() as c:
+                c.execute("SET SEARCH_PATH TO THECIMS")
+                c.execute(f"INSERT INTO MENGGUNAKAN_BARANG VALUES ('{username_pengguna}','{nama_tokoh}', '{waktu}','{id_barang}')")
+        return HttpResponseRedirect(reverse('menggunakan_barang:read'))
+    create_form = barangForm()
+    response = {'create_form':create_form}
+    return render(request,'menggunakan_barang/create.html',response)
 
 #Create
 # def create(request):
