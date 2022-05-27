@@ -60,6 +60,9 @@ INSTALLED_APPS = [
     'pekerjaan',
     'bekerja',
     'menggunakan_barang',
+
+    # Form
+    'crispy_forms',
 ]
 
 # hapus aja

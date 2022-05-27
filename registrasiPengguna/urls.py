@@ -1,9 +1,13 @@
 from django.urls import path
+from login import views
+from .views import *
 
-from . import views
-
-app_name = 'home'
-
+app_name = 'registrasiPengguna'
 urlpatterns = [
-    path('', views.index, name='index'),
+    #path('', user_reg_page, name='user_reg'),
+
+
+    path('Registrasi', pilihakun),
+    path('RegistrasiAdmin', registadmin),
+    path('RegistrasiPemain', registerPemain),
 ]

@@ -1,30 +1,118 @@
+# from django.db import connection
+# from collections import namedtuple
+# from django.shortcuts import render
+# from django.db import connection
+# from collections import namedtuple
+#
+# # Create your views here.
+# def index(request):
+#     return render(request, 'index.html')
+#
+# def namedtuplefetchall(cursor):
+#     "Return all rows from a cursor as a namedtuple"
+#     desc = cursor.description
+#     nt_result = namedtuple('Result', [col[0] for col in desc])
+#     return [nt_result(*row) for row in cursor.fetchall()]
+#
+# def index(request):
+#     cursor = connection.cursor()
+#     try:
+#         cursor.execute("SET SEARCH_PATH TO THECIMS")
+#         cursor.execute("SELECT USERNAME FROM AKUN")
+#         cursor.execute("SELECT USERNAME, EMAIL FROM PEMAIN")
+#         result = namedtuplefetchall(cursor)
+#     except Exception as e:
+#         print(e)
+#     finally:
+#         cursor.close()
+#
+#     return render(request, 'index.html', {'result': result})
+from registrasiPengguna.forms import *
 from django.db import connection
-from collections import namedtuple
-from django.shortcuts import render
-from django.db import connection
-from collections import namedtuple
+from django.shortcuts import redirect, render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib import messages
+from .forms import *
 
-# Create your views here.
-def index(request):
-    return render(request, 'index.html')
+def pilihakun(request):
+    return render(request, "pilihanakun.html")
 
-def namedtuplefetchall(cursor):
-    "Return all rows from a cursor as a namedtuple"
+def checkUserExist(table, username, password=None):
+    data = {}
+    if password is not None:
+        with connection.cursor() as c:
+            c.execute("SELECT * FROM THECIMS.%s WHERE username=%s AND password=%s" % (table, '%s', '%s'),[username,password])
+            data = dictfetchall(c)
+    else:
+        with connection.cursor() as c:
+            c.execute("SELECT * FROM THECIMS.%s WHERE username=%s" % (table, '%s'),[username])
+            data = dictfetchall(c)
+    print(len(data))
+    return len(data) > 0
+
+def registerAkun(username):
+    with connection.cursor() as c:
+        c.execute("INSERT INTO THECIMS.akun VALUES (%s)", [username])
+
+def dictfetchall(cursor):
+    "Returns all rows from a cursor as a dict"
     desc = cursor.description
-    nt_result = namedtuple('Result', [col[0] for col in desc])
-    return [nt_result(*row) for row in cursor.fetchall()]
+    return [
+            dict(zip([col[0] for col in desc], row))
+            for row in cursor.fetchall()
+    ]
 
-def index(request):
+def registadmin(request):
+    context = {}
+    form = formadmin(request.POST or None)
     cursor = connection.cursor()
-    try:
-        cursor.execute("SET SEARCH_PATH TO THECIMS")
-        cursor.execute("SELECT USERNAME FROM AKUN")
-        cursor.execute("SELECT USERNAME, EMAIL FROM PEMAIN")
-        result = namedtuplefetchall(cursor)
-    except Exception as e:
-        print(e)
-    finally:
-        cursor.close()
 
-    return render(request, 'index.html', {'result': result})
+    if (form.is_valid() and request.method == 'POST'):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
 
+        if checkUserExist("admin", username) == False:
+            registerAkun(username)
+            cursor.execute("INSERT INTO THECIMS.ADMIN VALUES (%s , %s)"
+            ,[username, password])
+            request.session['role'] = 1
+            return redirect('/') # arahin ke page login
+        else:
+            messages.error(request, 'Username sudah terdaftar')
+            return redirect("/login")
+    context['form'] = form
+
+    return render(request, 'registadmin.html', context)
+
+def registerPemain(request):
+    context = {}
+    form = formpemain(request.POST or None)
+    cursor = connection.cursor()
+
+    #Username: [isian]
+    #Password: [isian]
+    #Email: [isian]
+    #No HP: [isian]
+    if (form.is_valid() and request.method == 'POST'):
+
+        username = form.cleaned_data['username']
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        noHp = form.cleaned_data['hp']
+
+
+        if checkUserExist("pemain", username) == False:
+
+            registerAkun(username)
+
+            cursor.execute("INSERT INTO THECIMS.PEMAIN VALUES (%s , %s , %s, %s, %s)"
+                           , [username, email, password, noHp, 0])
+            request.session['role'] = 0
+            return redirect('/')
+        else:
+            messages.error(request, 'Username sudah terdaftar')
+            return redirect("/login")
+    context['form'] = form
+
+    return render(request, 'registerpemain.html', context)

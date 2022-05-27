@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>REGISTRASI</title>
+  </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+    body {
+        font-family:'Poppins';
+        /* padding: 50px; */
+        background-color: beige;
+        text-decoration: none;
+    }
+    form {
+    /* width: 70%; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    }
+    .bungkusinput {
+        text-align: center;
+    }
+    .pad {
+      padding: 50px;
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="#" style="color: white;">THECIMS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/" style="color: white;">Home <span class="sr-only">(current)</span></a>
+          </li>
+      </div>
+    </nav>
+    <div class='pad'>
+    <h1 style="text-align: center;">REGISTRASI AKUN SIVAX</h1>
+    <hr style="border: 1px solid black;">
+    <h5>Jenis Akun:</h5>
+    <input type='radio' name='test' id='yes' value='admin'> Admin
+    <br>
+    <input type='radio' name='test' id='yes' value='pemain'> Pemain
+    <div class="bungkusinput">
+    <button id="lanjut">LANJUT</button></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $('#lanjut').click(function() {
+            var value = $('input[name=test]:checked').val();
+            if (value == 'admin') {
+                console.log(value);
+                window.location.assign("/registrasiPengguna/RegistrasiAdmin");
+            }else if(value =='pemain'){
+                console.log(value);
+                window.location.assign("/registrasiPengguna/RegistrasiPemain");
+            }
+            if (value == 'warga') {
+                console.log(value);
+                window.location.assign("/registrasiPengguna/RegistrasiPemain");
+            }
+            });
+  </script>
+</div>
+  </body>
+</html>
