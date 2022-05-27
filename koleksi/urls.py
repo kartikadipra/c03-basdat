@@ -3,5 +3,7 @@ from .views import *
 
 app_name = 'koleksi'
 urlpatterns = [
-	path('', index, name='index')
+	path('', rud_koleksi, name='koleksi'),
+	path('create/', c_koleksi, name='c_koleksi'),
+	path('delete/<id>/<harga>/',d_koleksi, name='d_koleksi'),
 ]
