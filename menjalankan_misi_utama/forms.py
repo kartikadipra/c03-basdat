@@ -41,7 +41,7 @@ def get_nama_tokoh():
 
 
 class createForm(forms.Form):
-    nama_misi = forms.CharField(label="Nama Misi", widget=forms.Select(choices=get_nama_makanan()))
+    nama_misi = forms.CharField(label="Nama Misi", widget=forms.Select(choices=get_nama_misi()))
 
     username_pengguna = forms.CharField(label="Username Pengguna", widget=forms.Select(choices=get_username_pemain()))
 
